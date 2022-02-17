@@ -209,7 +209,7 @@ while True:
     # 第七步：循环脸部位置信息，使用predictor(gray, rect)获得脸部特征位置的信息
     for rect in rects:
         shape = predictor(gray, rect)
-121
+
         # 第八步：将脸部特征信息转换为数组array的格式
         shape = face_utils.shape_to_np(shape)
 
