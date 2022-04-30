@@ -7,7 +7,6 @@ from imutils import face_utils
 import numpy as np  # 数据处理的库 numpy
 import argparse
 import imutils
-import time
 import dlib
 import cv2
 import math
@@ -130,8 +129,8 @@ def inmouth_aspect_ratio(inmouth):  # 内部嘴部
 # 闪烁阈值
 EYE_AR_THRESH = 0.25
 EYE_AR_CONSEC_FRAMES = 3
-SLEEP_EYE_AR_CONSEC_FRAMES = 14
-TOTALINC = 5
+SLEEP_EYE_AR_CONSEC_FRAMES = 25
+TOTALINC = 2
 
 # 打哈欠长宽比
 # 嘴巴长和宽之比
@@ -246,14 +245,24 @@ while True:
         '''
             分别计算左眼和右眼的评分求平均作为最终的评分，如果小于阈值，则加1，如果连续3次都小于阈值，则表示进行了一次眨眼活动
         '''
-        # 第十三步：循环，满足条件的，眨眼次数+1
+        # # 第十三步：循环，满足条件的，眨眼次数+1
+        # if ear < EYE_AR_THRESH:  # 眼睛长宽比：
+        #     COUNTER += 1
+        #     if COUNTER >= EYE_AR_CONSEC_FRAMES:  # 阈值：
+        #         TOTAL += 1
+        #     if COUNTER >= SLEEP_EYE_AR_CONSEC_FRAMES:  # 阈值：
+        #         TOTAL += TOTALINC
+        #         COUNTER = 0
+        # else:
+        #     # 重置眼帧计数器
+        #     COUNTER = 0
+
         if ear < EYE_AR_THRESH:  # 眼睛长宽比：
             COUNTER += 1
-            if COUNTER >= EYE_AR_CONSEC_FRAMES:  # 阈值：
-                TOTAL += 1
-            if COUNTER >= SLEEP_EYE_AR_CONSEC_FRAMES:  # 阈值：
+            if COUNTER >= 50:  # 阈值：
                 TOTAL += TOTALINC
-                COUNTER = 0
+            elif COUNTER >= EYE_AR_CONSEC_FRAMES:  # 阈值：
+                TOTAL += 1
         else:
             # 重置眼帧计数器
             COUNTER = 0
