@@ -54,7 +54,7 @@ line_pairs = [[0, 1], [1, 2], [2, 3], [3, 0],
 # 眼睛长宽比
 # 闪烁阈值
 EYE_AR_THRESH = 0.25
-EYE_AR_CON_SEC_FRAMES = 3
+EYE_AR_CON_SEC_FRAMES = 2
 EYE_INC = 1
 # 睡眠眼部阈值
 # 闭眼之后每秒长多少

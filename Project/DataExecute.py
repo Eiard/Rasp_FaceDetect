@@ -5,6 +5,26 @@ from scipy.spatial import distance as dist
 import cv2
 import math
 import Def
+import imutils
+from imutils import face_utils
+
+def face_detect(frame, detector):  # 灰度处理并且读取人脸信息
+    # 图片做维度扩大
+    frame = imutils.resize(frame, width = 1080)
+    # 灰度处理
+    gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    # 使用detector(gray_frame, 0) 进行脸部位置检测 检测到多张脸
+    faces = detector(gray_frame, 0)
+    return faces, gray_frame, frame  # 返回人脸信息
+
+
+def face_feature_points(face, gray_frame, predictor):
+    # 获取人脸的特征点对象
+    shape = predictor(gray_frame, face)
+    # 将脸部特征信息转换为数组array的格式
+    shape = face_utils.shape_to_np(shape)
+    return shape  # 数组array
+
 
 def get_head_pose(shape):  # 头部姿态估计
     # （像素坐标集合）填写2D参考点，注释遵循https://ibug.doc.ic.ac.uk/resources/300-W/
@@ -61,7 +81,6 @@ def mouth_aspect_ratio(mouth):  # 嘴部
     #           50  62 63  64 65  54
     #        49  61
 
-
     A = np.linalg.norm(mouth[2] - mouth[9])  # 51, 59
     B = np.linalg.norm(mouth[3] - mouth[8])  # 52, 58
     C = np.linalg.norm(mouth[4] - mouth[7])  # 53, 57
@@ -87,3 +106,10 @@ def average_eyes_ratio(left_eye, right_eye):
     leftEAR = eye_aspect_ratio(left_eye)
     rightEAR = eye_aspect_ratio(right_eye)
     return (leftEAR + rightEAR) / 2.0
+
+
+def total_ratio(left_eye, right_eye, mouth, inner_mouth):
+    eye_ratio = average_eyes_ratio(left_eye, right_eye)
+    mouth_ratio = mouth_aspect_ratio(mouth)
+    inner_mouth_ratio = inner_mouth_aspect_ratio(inner_mouth)
+    return eye_ratio, mouth_ratio, inner_mouth_ratio
