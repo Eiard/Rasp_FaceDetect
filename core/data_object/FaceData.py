@@ -1,6 +1,6 @@
-from Def import Def
-from core.DataExecute import total_ratio
-from core.DataExecute import get_head_pose
+from core.Def import Def
+from core.Utils.DataExecute import total_ratio
+from core.Utils.DataExecute import get_head_pose
 
 
 class Face_Data(object):

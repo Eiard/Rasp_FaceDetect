@@ -4,7 +4,7 @@ import numpy as np  # 数据处理的库 numpy
 from scipy.spatial import distance as dist
 import cv2
 import math
-from Def import Def
+from ..Def import Def
 import imutils
 from imutils import face_utils
 

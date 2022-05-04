@@ -1,4 +1,4 @@
-from Def import Def
+from core.Def import Def
 
 
 class Judge(object):
