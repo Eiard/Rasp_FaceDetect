@@ -2,13 +2,13 @@
 # import the necessary packages
 
 import cv2
-from Device.Device import Device
+from core.device.Device import Device
 from Judge import Judge
 from FaceData import Face_Data
 
 from DataExecute import face_detect
 from DataExecute import face_feature_points
-from Ui.UiShow import show_ui
+from core.Ui.UiShow import show_ui
 
 # 设备对象
 device = Device()
